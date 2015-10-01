@@ -1,0 +1,7 @@
+{
+    "validateIndentation": 4,
+    "validateQuoteMarks": "'",
+    "maximumLineLength": 100,
+    "requireDotNotation": true,
+    "requireSemicolons": true
+}

@@ -1,0 +1,10 @@
+{
+    "eqeqeq": true,
+    "eqnull": true,
+    "globalstrict": true,
+    "browser": true,
+    "globals": {
+        "$": false,
+        "ContentTools": false
+    }
+}

@@ -1,0 +1,8 @@
+.pip/
+__pycache__/
+
+static/content-tools/images/
+static/content-tools/icons.woff
+static/content-tools/content-tools.*
+
+db.sql
