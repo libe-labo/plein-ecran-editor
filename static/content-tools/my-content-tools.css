@@ -1,0 +1,20 @@
+.ct-ignition .ct-ignition__button i {
+    color: #fff;
+
+    transition: transform 0.1s ease-in;
+}
+
+.ct-ignition .ct-ignition__button:hover i {
+    transform: rotate(-10deg);
+}
+
+.ct-ignition .ct-ignition__button--add-chapter {
+    display: block !important;
+    top: 64px;
+
+    background: #2980B9 none repeat scroll 0% 0%;
+}
+
+.ct-ignition .ct-ignition__button--add-chapter:hover {
+    background: #2E8ECE none repeat scroll 0% 0%;
+}
