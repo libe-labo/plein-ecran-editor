@@ -1,5 +1,18 @@
 Un semblant d'éditeur pour bootstraper des Pleins Écrans.
 
+## Installation
+
+Cet éditeur a besoin de [**Python3**](https://www.python.org/downloads/) ainsi que de [**Pip3**](https://pip.pypa.io/en/stable/installing/).  
+Après, il suffit de lancer :
+```bash
+$> make install
+```
+Et si il n'y a pas d'erreur d'affichée sur l'écran c'est qu'on est bons. :shipit:
+
+```bash
+$> make run
+```
+
 ## License
 
 > The MIT License (MIT)
