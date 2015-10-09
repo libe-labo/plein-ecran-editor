@@ -6,7 +6,7 @@ CONTENT-TOOLS_URL = https://github.com/GetmeUK/ContentTools/archive/master.zip
 CONTENT-TOOLS_SRC_FOLDER = ContentTools-master/
 CONTENT-TOOLS_DEST_FOLDER = static/content-tools/
 
-WGET = wget
+WGET = curl -OL
 UNZIP = unzip -q
 CP = cp -R
 RM = rm -fr
