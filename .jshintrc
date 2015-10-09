@@ -3,8 +3,11 @@
     "eqnull": true,
     "globalstrict": true,
     "browser": true,
+    "loopfunc": true,
     "globals": {
         "$": false,
-        "ContentTools": false
+        "_": false,
+        "ContentTools": false,
+        "HTMLString": false
     }
 }

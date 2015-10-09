@@ -1,0 +1,111 @@
+.chapter {
+    .exergue {
+        position: relative;
+        top: 0;
+        left: 0;
+
+        padding: 0;
+        margin: 25px;
+
+        width: 30%;
+
+        color: @primary-color;
+        font-family: 'Lato', sans-serif;
+
+        &.left {
+            float: left;
+            margin-left: -15%;
+        }
+
+        &.right {
+            float: right;
+            margin-right: -15%;
+        }
+
+        &.quote {
+            position: relative;
+            box-sizing: border-box;
+
+            width: 40%;
+
+            &:before, &:after {
+                position: absolute;
+                font-size: 6em;
+                line-height: 0;
+            }
+
+            &:before {
+                content: '«' ;
+                top: -.05em;
+            }
+
+            &:after {
+                content: '»' ;
+            }
+
+            &.left {
+                margin-left: -20%;
+                padding-right: 2.5em;
+
+                &:before {
+                    left: -.45em;
+                }
+
+                &:after {
+                    right: -.05em;
+                }
+            }
+
+            &.right {
+                margin-right: -20%;
+                padding-left: 2.5em;
+
+                &:before {
+                    left: -.05em;
+                }
+
+                &:after {
+                    right: -.5em;
+                }
+            }
+        }
+
+        &__legend {
+            margin: .5em 0 0 0;
+
+            font-size: .6em;
+            line-height: 1em;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .chapter {
+        .exergue, .exergue.quote {
+            text-align: center;
+
+            &.left, &.right {
+                float: none;
+                display: block;
+                margin: 25px 0;
+                width: 100%;
+
+                &.quote {
+                    padding: 0 3em;
+
+                    &:before, &:after {
+                        font-size: 4em;
+                    }
+
+                    &:before {
+                        left: 0;
+                    }
+
+                    &:after {
+                        right: 0;
+                    }
+                }
+            }
+        }
+    }
+}

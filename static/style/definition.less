@@ -1,0 +1,48 @@
+@definition-color: @primary-color;
+
+section.chapter {
+    .definition {
+        box-shadow: inset 0 -2px 0 @definition-color;
+        cursor: pointer;
+
+        &:hover {
+            color: #fff;
+            background-color: @definition-color;
+        }
+    }
+}
+
+.definition-container {
+    opacity: 1;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    max-width: 20%;
+    padding: 0 15px;
+
+    background-color: @definition-color;
+
+    color: #fff;
+    font-family: Georgia, serif;
+
+    transition: opacity .3s;
+
+    &.hidden {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    &__title {
+        text-transform: uppercase;
+        font-weight: 700;
+    }
+}
+
+@media (max-width: 768px) {
+    .definition-container {
+        max-width: 100%;
+        width: 100%;
+    }
+}

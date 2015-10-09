@@ -1,0 +1,28 @@
+// Quick hack to be sure our @media query is the first one
+@media (max-width: 768px) { body { display: block; } }
+
+// Font
+@import "fonts.less";
+
+// Default variables declaration
+@primary-color: #e61e49;
+@secondary-color: rgb(0, 0, 0);
+@primary-font: 'Fjalla One', sans-serif;
+@secondary-font: Georgia, serif;
+
+// Header
+@import "brand.less";
+
+// Main style
+@import "main.less";
+@import "mobile.less";
+
+// Components
+@import "exergue.less";
+@import "definition.less";
+@import "more.less";
+@import "fold.less";
+@import "videolink.less";
+
+// Instance specific
+@import "variables.less";

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+        <title>Libération.fr – Jean-Michel Jarre, deux ou trois mots</title>
+
+        <meta name="description" content="Tout savoir sur les dernières actualités politiques, monde, société, sports, écologie avec le journal en ligne Libération.">
+        <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+        <meta name="keywords" content="actualités, news">
+
+
+        <meta property="og:title" content="Libération.fr – Jean-Michel Jarre, deux ou trois mots" />
+        <meta property="og:site_name" content="Libération.fr"/>
+        <meta property="og:image" content="" />
+        <meta property="og:url" content="http://www.liberation.fr/apps/2015/10/jmjarre/" />
+        <meta property="og:description" content="Une soirée chez un momument pop français. Entretien fleuve." />
+
+
+        <link rel="canonical" href="http://www.liberation.fr/apps/2015/10/jmjarre/">
+        <link rel="shortcut icon" href="http://www.liberation.fr/favicon.ico">
+        <link rel="shortcut icon" href="http://www.liberation.fr/favicon.png">
+
+
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
+        <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/skrollr/0.6.30/skrollr.min.js"></script>
+
+        <link type="text/css" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        {% block styles %}{% endblock %}
+
+        <script type="text/javascript" src="{{ url_for('static', filename='scripts/definition.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='scripts/more.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='scripts/fold.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='scripts/videolink.js') }}"></script>
+    </head>
+    <body>
+        <header>
+            <div class="brand">
+                <a href="http://www.liberation.fr">
+                    <img src="http://s1.libe.com/img/logo-liberation-311x113.png" alt="Libération">
+                </a>
+            </div>
+            <ul>
+                {% for chapter in chapters %}
+                    <li><a href="#chapitre-{{ chapter.position }}">Chapitre {{ chapter.position }}</a></li>
+                {% endfor %}
+            </ul>
+        </header>
+        <div class="content container-fluid">
+            {% for chapter in chapters %}
+                {{ chapter.content }}
+            {% endfor %}
+        </div>
+
+        <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='scripts/covers.js') }}"></script>
+
+        {% block scripts %}
+        {% endblock %}
+    </body>
+</html>

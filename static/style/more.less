@@ -1,0 +1,64 @@
+.chapter {
+    .more {
+        cursor: pointer;
+    }
+}
+
+.more-container {
+    padding: 15px;
+
+    &--mobile {
+        display: none;
+    }
+
+    &--desktop {
+        &.hidden {
+            display: none;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .more-container {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+
+        background-color: #fff;
+
+        transition: top .4s linear;
+
+        &--mobile {
+            display: block;
+            overflow-y: auto;
+
+            padding-top: 50px;
+
+            &.hidden {
+                top: 100%;
+            }
+
+            &__top {
+                width: 100%;
+                height: 50px;
+
+                position: fixed;
+                top: 0;
+                left: 0;
+
+                background-color: #fff;
+            }
+        }
+
+        .fa.fa-remove {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+
+            cursor: pointer;
+        }
+    }
+}
