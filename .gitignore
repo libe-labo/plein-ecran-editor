@@ -9,3 +9,4 @@ static/style/variables.less
 static/style.css
 
 db.sql*
+index*.html
