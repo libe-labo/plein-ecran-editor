@@ -1,4 +1,4 @@
-Un semblant d'éditeur pour bootstraper des Pleins Écrans.
+Un semblant d'éditeur pour bootstraper des [Pleins Écrans](http://www.liberation.fr/apps/2015/10/jmjarre/).
 
 ## Installation
 
