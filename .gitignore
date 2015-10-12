@@ -6,5 +6,6 @@ static/content-tools/content-tools.*
 static/upload/
 
 static/style/variables.less
+static/style.css
 
 db.sql*
