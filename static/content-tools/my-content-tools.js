@@ -307,5 +307,11 @@ window.addEventListener('load', function() {
 
     defineStyles();
     defineTools();
-    startEditor();
+    if ($('.chapter__content').length > 0) {
+        startEditor();
+    } else {
+        $.post('/add', { }, function() {
+            window.location.reload();
+        });
+    }
 });

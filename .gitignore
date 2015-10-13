@@ -8,5 +8,5 @@ static/upload/
 static/style/variables.less
 static/style.css
 
-db.sql*
+db*sql
 index*.html
