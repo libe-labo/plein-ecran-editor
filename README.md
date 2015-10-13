@@ -7,11 +7,19 @@ Après, il suffit de lancer :
 ```bash
 $> make install
 ```
-Et si il n'y a pas d'erreur d'affichée sur l'écran c'est qu'on est bons. :shipit:
+Et si il n'y a pas d'erreur d'affichée sur l'écran c'est qu'on est bons :shipit:
 
 ```bash
 $> make run
 ```
+
+## To do
+
+* Meilleure gestion des insécables
+* Édition simplifiée des appuis
+* Édition des inter-chapitres
+* Suppression de chapitres
+* Gestion des accès concurrents
 
 ## License
 
