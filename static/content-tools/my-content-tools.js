@@ -166,6 +166,8 @@ window.addEventListener('load', function() {
         });
 
         $('.ct-ignition__button--edit')[0].addEventListener('click', function() {
+            $('.fold.folded').removeClass('folded');
+
             $('.chapter__content > *').each(function() {
                 if ($(this).hasClass('menu')) { return; }
                 $(this).html($(this).html().replace('&nbsp;', '&amp;nbsp;'));
