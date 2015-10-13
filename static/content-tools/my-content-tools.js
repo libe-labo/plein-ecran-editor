@@ -10,7 +10,8 @@ window.addEventListener('load', function() {
             new ContentTools.Style('Gauche', 'left', ['p', 'img']),
             new ContentTools.Style('Droite', 'right', ['p', 'img']),
             new ContentTools.Style('Citation', 'quote', ['p']),
-            new ContentTools.Style('Question', 'question', ['p'])
+            new ContentTools.Style('Question', 'question', ['p']),
+            new ContentTools.Style('Appui', 'fold', ['p'])
         ]);
     };
 
