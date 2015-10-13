@@ -12,12 +12,12 @@
         color: @primary-color;
         font-family: 'Lato', sans-serif;
 
-        &.left {
+        &.left, &.align-left {
             float: left;
             margin-left: -15%;
         }
 
-        &.right {
+        &.right, &.align-right {
             float: right;
             margin-right: -15%;
         }
@@ -43,7 +43,7 @@
                 content: '»' ;
             }
 
-            &.left {
+            &.left, &.align-left {
                 margin-left: -20%;
                 padding-right: 2.5em;
 
@@ -56,7 +56,7 @@
                 }
             }
 
-            &.right {
+            &.right, &.align-right {
                 margin-right: -20%;
                 padding-left: 2.5em;
 
@@ -84,7 +84,7 @@
         .exergue, .exergue.quote {
             text-align: center;
 
-            &.left, &.right {
+            &.left, &.right, &.align-left, &.align-right {
                 float: none;
                 display: block;
                 margin: 25px 0;

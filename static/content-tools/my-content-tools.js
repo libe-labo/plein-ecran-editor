@@ -7,8 +7,6 @@ window.addEventListener('load', function() {
         ContentTools.StylePalette.add([
             new ContentTools.Style('Chapo', 'chapo', ['p']),
             new ContentTools.Style('Exergue', 'exergue', ['p', 'img']),
-            new ContentTools.Style('Gauche', 'left', ['p', 'img']),
-            new ContentTools.Style('Droite', 'right', ['p', 'img']),
             new ContentTools.Style('Citation', 'quote', ['p']),
             new ContentTools.Style('Question', 'question', ['p']),
             new ContentTools.Style('Appui', 'fold', ['p'])
