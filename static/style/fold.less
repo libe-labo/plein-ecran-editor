@@ -1,10 +1,13 @@
+@fold-color: @secondary-color;
+@fold-background-color: @primary-color;
+
 .chapter {
     .fold {
         padding: 0 10%;
 
-        background-color: lighten(@primary-color, 35%);
+        background-color: lighten(@fold-background-color, 35%);
 
-        color: @secondary-color;
+        color: @fold-color;
 
         overflow-y: hidden;
 
@@ -16,11 +19,11 @@
             &:first-of-type {
                 position: relative;
 
-                padding: 1em 0;
+                padding: 1em 2em 1em 0;
 
-                color: @primary-color;
+                color: @fold-background-color;
 
-                border-top: 3px solid @primary-color;
+                border-top: 3px solid @fold-background-color;
 
                 .fa {
                     position: absolute;
@@ -36,7 +39,7 @@
             }
 
             &:last-child {
-                border-bottom: 3px solid @primary-color;
+                border-bottom: 3px solid @fold-background-color;
 
                 padding: 0 0 1em 0;
             }
