@@ -306,9 +306,9 @@ window.addEventListener('load', function() {
         });
     };
 
-    defineStyles();
-    defineTools();
     if ($('.chapter__content').length > 0) {
+        defineStyles();
+        defineTools();
         startEditor();
     } else {
         $.post('/add', { }, function() {

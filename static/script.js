@@ -102,6 +102,12 @@ $(function() {
         };
     })());
 
+    var resizeCovers = function() {
+        $('.chapter__cover').css('height', $(window).innerHeight());
+    };
+
+    $(window).on('resize', _.debounce(resizeCovers, 200));
+
     window.resetComponents = function() {
         var components = ['definition', 'fold', 'more', 'videolink'];
         for (var i = 0; i < components.length; ++i) {
@@ -109,6 +115,8 @@ $(function() {
         }
 
         $('.chapter__content p a').attr('target', '_blank');
+
+        resizeCovers();
     };
 
     // At last, initialize all of our components
