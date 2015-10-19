@@ -45,7 +45,7 @@ window.addEventListener('load', function() {
                     selectTag = new HTMLString.Tag('span', { class : 'ct--pseudo-select' }),
                     sFrom = selection.get()[0], sTo = selection.get()[1],
                     dialog,
-                    modal = new ContentTools.ModalUI({transparent:true,allowScrolling:true});
+                    modal = new ContentTools.ModalUI({ transparent:true , allowScrolling : true });
 
                 element.storeState();
 
