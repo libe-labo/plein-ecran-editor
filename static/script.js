@@ -2,6 +2,8 @@
 'use strict';
 
 $(function() {
+    window.paulloz = { afterUpdateChapterLink : $.noop };
+
     // Check the first @media query present in our stylesheets to know if we're on a mobile or not
     window.isMobile = function() {
         for (var j = 0; j < document.styleSheets.length; ++j) {
@@ -33,6 +35,8 @@ $(function() {
         function updateChapterLinks() {
             $('header a[href="' + window.location.hash + '"]').parent('li').addClass('active')
                 .siblings().removeClass('active');
+
+            window.paulloz.afterUpdateChapterLink();
         }
 
         $('.menu a').on('click', function(event) {
