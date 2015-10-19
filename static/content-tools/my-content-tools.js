@@ -86,7 +86,7 @@ window.addEventListener('load', function() {
 
                     if (stuff != null) {
                         var htmlStringAttrs = { class : className };
-                        htmlStringAttrs[attrName] = stuff;
+                        htmlStringAttrs[attrName] = stuff.replace(/"/g, '');
                         element.content = element.content.format(
                             sFrom,
                             sTo,
