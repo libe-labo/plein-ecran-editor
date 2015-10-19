@@ -1,4 +1,4 @@
-.pip/
+*.pip/
 __pycache__/
 
 static/content-tools/images/
@@ -7,6 +7,8 @@ static/upload/
 
 static/style/variables.less
 static/style.css
+
+static/scripts/variables.js
 
 db*sql
 index*.html

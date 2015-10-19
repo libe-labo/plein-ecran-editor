@@ -9,6 +9,7 @@ CONTENT-TOOLS_DEST_FOLDER = static/content-tools/
 UPLOAD_FOLDER = static/upload
 
 CUSTOM_STYLE_FILE = static/style/variables.less
+CUSTOM_SCRIPT_FILE = static/scripts/variables.js
 
 WGET = curl -OL
 UNZIP = unzip -q
@@ -43,3 +44,6 @@ $(UPLOAD_FOLDER) :
 
 $(CUSTOM_STYLE_FILE) :
 	$(TOUCH) $(CUSTOM_STYLE_FILE)
+
+$(CUSTOM_SCRIPT_FILE) :
+	$(TOUCH) $(CUSTOM_SCRIPT_FILE)
