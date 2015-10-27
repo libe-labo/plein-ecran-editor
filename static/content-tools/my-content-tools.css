@@ -25,6 +25,7 @@
 .ct-widget .ct-tool--paragraph::before { content: "P"; }
 .ct-widget .ct-tool--line-break::before { content: "\e613"; }
 .ct-widget .ct-tool--image::before { content: "\e602"; }
+.ct-widget .ct-tool--video::before { content: "\e61b"; }
 .ct-widget .ct-tool--undo::before { content: "\e605"; }
 .ct-widget .ct-tool--redo::before { content: "\e606"; }
 .ct-widget .ct-tool--remove::before { content: "\e608"; }

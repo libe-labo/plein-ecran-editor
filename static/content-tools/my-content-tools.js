@@ -6,7 +6,7 @@ window.addEventListener('load', function() {
     var defineStyles = function() {
         ContentTools.StylePalette.add([
             new ContentTools.Style('Chapo', 'chapo', ['p']),
-            new ContentTools.Style('Exergue', 'exergue', ['p', 'img']),
+            new ContentTools.Style('Exergue', 'exergue', ['p', 'img', 'iframe']),
             new ContentTools.Style('Citation', 'quote', ['p']),
             new ContentTools.Style('Question', 'question', ['p']),
             new ContentTools.Style('Appui', 'fold', ['p'])
@@ -207,7 +207,7 @@ window.addEventListener('load', function() {
         ['bold', 'italic', 'link'],
         ['heading', 'subheading', 'paragraph'],
         ['superscript', 'definition', 'videolink'],
-        ['line-break', 'image'],
+        ['line-break', 'image', 'video'],
         ['undo', 'redo', 'remove']
     ];
 
