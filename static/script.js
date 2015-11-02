@@ -2,7 +2,7 @@
 'use strict';
 
 $(function() {
-    window.paulloz = { afterUpdateChapterLink : $.noop };
+    window.paulloz = { afterUpdateChapterLink : $.noop , afterResetComponents : $.noop };
 
     // Check the first @media query present in our stylesheets to know if we're on a mobile or not
     window.isMobile = function() {
@@ -121,6 +121,8 @@ $(function() {
         $('.chapter__content p a').attr('target', '_blank');
 
         resizeCovers();
+
+        window.paulloz.afterResetComponents();
     };
 
     // At last, initialize all of our components
