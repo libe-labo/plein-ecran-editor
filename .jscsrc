@@ -2,6 +2,24 @@
     "validateIndentation": 4,
     "validateQuoteMarks": "'",
     "maximumLineLength": 100,
+
     "requireDotNotation": true,
-    "requireSemicolons": true
+    "requireSemicolons": true,
+    "requirePaddingNewLinesAfterBlocks": {"allExcept": ["inCallExpressions", "inProperties"]},
+    "requireSpacesInFunctionExpression": {"beforeOpeningCurlyBrace": true},
+    "requireSpaceBeforeObjectValues": true,
+    "requireSpaceBetweenArguments": true,
+    "requireSpacesInConditionalExpression": true,
+    "requireSpaceBeforeBinaryOperators": true,
+    "requireSpacesInsideObjectBrackets": "all",
+    "requireSpaceAfterKeywords": ["if", "else", "for", "while", "do", "switch", "try", "catch"],
+
+    "disallowSpaceAfterObjectKeys": true,
+    "disallowSpacesInFunctionExpression": {"beforeOpeningRoundBrace": true},
+    "disallowTabs": true,
+    "disallowTrailingComma": true,
+    "disallowMultipleVarDecl": false,
+    "disallowSpaceBeforeSemicolon": true,
+    "disallowSpaceBeforeComma": {"allExcept": ["sparseArrays"]},
+    "requireVarDeclFirst": true
 }

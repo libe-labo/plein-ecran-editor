@@ -5,7 +5,7 @@ $.fn.fold = function() {
         var $this = $(this);
 
         if ($this.find('.fa').length <= 0) {
-            $this.children('span').first().append($('<i>', { class : 'fa fa-angle-down' }));
+            $this.children('span').first().append($('<i>', { class: 'fa fa-angle-down' }));
         }
 
         if ($this.find('.fa').length > 0) {

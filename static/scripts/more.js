@@ -5,7 +5,8 @@ $.fn.more = function() {
         $desktopContainer;
 
     this.on('click', (function() {
-        var $this = $(this);
+        var $this = $(this),
+            content;
 
         $mobileContainer = $('.more-container--mobile');
         if ($mobileContainer.length <= 0) {
@@ -23,7 +24,7 @@ $.fn.more = function() {
             $('body').removeClass('noscroll');
         }).appendTo($('<div>').addClass('more-container--mobile__top').prependTo($mobileContainer));
 
-        var content = $this.attr('rel');
+        content = $this.attr('rel');
         if (content.indexOf('#') === 0 && $(content).length > 0) {
             content = $(content).children().clone();
         } else {

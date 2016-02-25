@@ -5,7 +5,7 @@ $.fn.definition = function() {
 
     this.off('mouseenter.definition');
     this.on('mouseenter.definition', function() {
-        var $this = $(this);
+        var $this = $(this), $window;
 
         $container = $('.definition-container');
         if ($container.length <= 0) {
@@ -19,7 +19,7 @@ $.fn.definition = function() {
         $container.find('.definition-container__content').text($this.attr('rel'));
         $container.removeClass('hidden');
 
-        var $window = $(window),
+        $window = $(window),
             margin = 30,
             top = $this.offset().top + $this.height() - parseInt($('.content').css('margin-top')),
             left = $this.offset().left + ($this.width() / 2) - ($container.width() / 2);
