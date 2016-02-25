@@ -35,18 +35,6 @@
         <script type="text/javascript" src="{{ url_for('static', filename='scripts/videolink.js') }}"></script>
     </head>
     <body>
-        <header>
-            <div class="brand">
-                <a href="http://www.liberation.fr">
-                    <img src="http://s1.libe.com/newsite/images/logo-libe.svg" alt="Libération">
-                </a>
-            </div>
-            <ul>
-                {% for chapter in chapters %}
-                    <li><a href="#chapitre-{{ chapter.position }}">Chapitre {{ chapter.position }}</a></li>
-                {% endfor %}
-            </ul>
-        </header>
         <div class="content container-fluid">
             {% for chapter in chapters %}
                 {{ chapter.content }}
@@ -56,6 +44,8 @@
         <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
         <script type="text/javascript" src="{{ url_for('static', filename='scripts/variables.js') }}"></script>
 
+        <!-- Header -->
+        <script type="text/javascript" src="http://www.liberation.fr/menu/script.js"></script>
         {% block scripts %}
         {% endblock %}
     </body>
