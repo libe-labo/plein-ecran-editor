@@ -18,18 +18,20 @@ window.addEventListener('load', function() {
             var Tool = _.clone(ContentTools.ToolShelf.fetch('bold'));
 
             Tool.getStuff = function(element, selection) {
+                var c, tag;
+
                 var sFrom = selection.get()[0],
                     sTo = selection.get()[1],
                     selectedContent = element.content.slice(sFrom, sTo);
 
-                for (var c in selectedContent.characters) {
+                for (c in selectedContent.characters) {
                     c = selectedContent.characters[c];
 
                     if (!c.hasTags(Tool.tagName)) {
                         continue;
                     }
 
-                    for (var tag in c.tags()) {
+                    for (tag in c.tags()) {
                         tag = c.tags()[tag];
                         if (tag.name() === Tool.tagName) {
                             return tag.attr(attrName);
@@ -42,10 +44,12 @@ window.addEventListener('load', function() {
 
             Tool.apply = function(element, selection, callback) {
                 var app = ContentTools.EditorApp.get(),
-                    selectTag = new HTMLString.Tag('span', { class : 'ct--pseudo-select' }),
+                    selectTag = new HTMLString.Tag('span', { class: 'ct--pseudo-select' }),
                     sFrom = selection.get()[0], sTo = selection.get()[1],
                     dialog,
-                    modal = new ContentTools.ModalUI({ transparent:true , allowScrolling : true });
+                    modal = new ContentTools.ModalUI({ transparent: true, allowScrolling: true });
+
+                var domElement;
 
                 element.storeState();
 
@@ -64,7 +68,7 @@ window.addEventListener('load', function() {
                     callback(false);
                 });
 
-                var domElement = element.domElement(),
+                domElement = element.domElement(),
                     measureSpan = domElement.getElementsByClassName('ct--pseudo-select'),
                     rect = measureSpan[0].getBoundingClientRect();
 
@@ -82,10 +86,12 @@ window.addEventListener('load', function() {
                     rect.top + (rect.height / 2) + window.scrollY
                 ]);
                 dialog.bind('save', function(stuff) {
+                    var htmlStringAttrs;
+
                     element.content = element.content.unformat(sFrom, sTo, Tool.tagName);
 
                     if (stuff != null) {
-                        var htmlStringAttrs = { class : className };
+                        htmlStringAttrs = { class: className };
                         htmlStringAttrs[attrName] = stuff.replace(/"/g, '');
                         element.content = element.content.format(
                             sFrom,
@@ -152,6 +158,7 @@ window.addEventListener('load', function() {
     var onStopEdit = function() {
         $('.chapter__content > *').each(function() {
             if ($(this).hasClass('menu')) { return; }
+
             $(this).html($(this).html().replace('&amp;nbsp;', '&nbsp;'));
         });
 
@@ -170,13 +177,14 @@ window.addEventListener('load', function() {
 
             $('.chapter__content > *').each(function() {
                 if ($(this).hasClass('menu')) { return; }
+
                 $(this).html($(this).html().replace('&nbsp;', '&amp;nbsp;'));
             });
         });
 
         $('.ct-widget').append(
             $('<div>', {
-                class : 'ct-ignition__button ct-ignition__button--add-chapter'
+                class: 'ct-ignition__button ct-ignition__button--add-chapter'
             }).click(function() {
                 editor.busy(true);
                 $.post('/add', function(data, status) {
@@ -187,7 +195,7 @@ window.addEventListener('load', function() {
                         $('ul').append(
                             $('<li>').append(
                                 $('<a>', {
-                                    href : '#' + $('section:last-of-type').attr('id')
+                                    href: '#' + $('section:last-of-type').attr('id')
                                 }).text('Chapitre ' + String($('section').length))
                             )
                         );
@@ -212,10 +220,12 @@ window.addEventListener('load', function() {
     ];
 
     editor.bind('save', function(regions) {
+        var data = { };
+        var k;
+
         editor.busy(true);
 
-        var data = { };
-        for (var k in regions) {
+        for (k in regions) {
             if (regions.hasOwnProperty(k) && k.indexOf('chapitre-') === 0) {
                 data[k.replace('chapitre-', '')] = regions[k];
             }
@@ -242,6 +252,7 @@ window.addEventListener('load', function() {
                 xhr.removeEventListener('readystatechange', xhrComplete);
                 xhr.abort();
             }
+
             dialog.state('empty');
         });
 
@@ -272,12 +283,13 @@ window.addEventListener('load', function() {
                     image = new Image();
                     image.onload = function() {
                         image = {
-                            url : response.url,
-                            size : [this.width, this.height]
+                            url: response.url,
+                            size: [this.width, this.height]
                         };
 
                         dialog.populate(image.url, image.size);
                     };
+
                     image.src = response.url;
                 } else {
                     new ContentTools.FlashUI('no');

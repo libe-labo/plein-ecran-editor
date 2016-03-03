@@ -2,33 +2,46 @@
 'use strict';
 
 $(function() {
-    window.paulloz = { afterUpdateChapterLink : $.noop , afterResetComponents : $.noop };
+    var resizeCovers = function() {
+        $('.chapter__cover').css('height', $(window).innerHeight());
+    };
+
+    $(window).on('resize', _.debounce(resizeCovers, 200));
+
+    window.paulloz = { afterUpdateChapterLink: $.noop, afterResetComponents: $.noop };
 
     // Check the first @media query present in our stylesheets to know if we're on a mobile or not
     window.isMobile = function() {
-        for (var j = 0; j < document.styleSheets.length; ++j) {
+        var i, j, mediaText;
+
+        for (j = 0; j < document.styleSheets.length; ++j) {
             if (document.styleSheets[j] == null ||
                 document.styleSheets[j].href == null) { continue; }
             if (document.styleSheets[j].href.indexOf('style.css') >= 0) {
-                for (var i = 0; i < document.styleSheets[j].cssRules.length; ++i) {
+                for (i = 0; i < document.styleSheets[j].cssRules.length; ++i) {
                     if (document.styleSheets[j].cssRules[i].constructor === CSSMediaRule) {
-                        var mediaText = document.styleSheets[j].cssRules[i].media.mediaText;
+                        mediaText = document.styleSheets[j].cssRules[i].media.mediaText;
                         return window.matchMedia(mediaText).matches;
                     }
                 }
+
                 break;
             }
         }
+
         return false;
     };
 
     // I'm hiding all of this in a function 'cause this kind of code is a mess and is ugly
     function handleEverythingScrollRelated() {
         function getTopPos(e) {
+            var pos;
+
             if (typeof(e) === typeof('')) {
                 e = $('#' + e.replace(/^#/, ''));
             }
-            var pos = e.find('.chapter__content').position() || { top : 0 };
+
+            pos = e.find('.chapter__content').position() || { top: 0 };
             return parseInt(pos.top - $('header').outerHeight());
         }
 
@@ -45,23 +58,26 @@ $(function() {
             window.history.pushState(null, null, $(event.currentTarget).attr('href'));
             if ($(this).attr('href') === window.location.hash) {
                 $('body').animate({
-                    scrollTop : getTopPos(window.location.hash)
+                    scrollTop: getTopPos(window.location.hash)
                 });
                 updateChapterLinks();
             }
         });
 
         $(window).on('scroll', function() {
+            var i;
             var scrollTop = $(window).scrollTop(),
                 currentHash = window.location.hash.replace(/^#/, ''),
+                newHash,
                 $chapters = $('section.chapter');
 
-            for (var i = 0; i < $chapters.length; ++i) {
+            for (i = 0; i < $chapters.length; ++i) {
                 if (scrollTop < getTopPos($($chapters.get(i)))) {
                     break;
                 }
             }
-            var newHash = $($chapters.get(Math.max(0, i - 1))).attr('id');
+
+            newHash = $($chapters.get(Math.max(0, i - 1))).attr('id');
             if (newHash !== currentHash) {
                 window.history.pushState(null, null, '#' + newHash);
                 updateChapterLinks();
@@ -92,10 +108,11 @@ $(function() {
     $('p').each((function() {
         var characters = ['?', '!', ':', ';'];
         return function() {
+            var i;
             var $this = $(this),
                 html = $this.html();
 
-            for (var i = 0; i < characters.length; ++i) {
+            for (i = 0; i < characters.length; ++i) {
                 html = html.replace(
                     new RegExp('\\s+[' + characters[i] + ']', 'g'),
                     '&nbsp;' + characters[i]
@@ -106,15 +123,10 @@ $(function() {
         };
     })());
 
-    var resizeCovers = function() {
-        $('.chapter__cover').css('height', $(window).innerHeight());
-    };
-
-    $(window).on('resize', _.debounce(resizeCovers, 200));
-
     window.resetComponents = function() {
+        var i;
         var components = ['definition', 'fold', 'more', 'videolink'];
-        for (var i = 0; i < components.length; ++i) {
+        for (i = 0; i < components.length; ++i) {
             $('.' + components[i])[components[i]]();
         }
 
