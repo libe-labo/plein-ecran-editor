@@ -130,7 +130,9 @@ $(function() {
             $('.' + components[i])[components[i]]();
         }
 
-        $('.chapter__content p a').attr('target', '_blank');
+        $('.chapter__content p a').each(function() {
+            $(this).attr('target', $(this).attr('href')[0] === '#' ? '_self' : '_blank');
+        });
 
         resizeCovers();
 
