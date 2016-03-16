@@ -11,7 +11,8 @@ window.addEventListener('load', function() {
             new ContentTools.Style('Droite', 'right', ['p', 'img', 'iframe']),
             new ContentTools.Style('Citation', 'quote', ['p']),
             new ContentTools.Style('Question', 'question', ['p']),
-            new ContentTools.Style('Appui', 'fold', ['p'])
+            new ContentTools.Style('Appui', 'fold', ['p']),
+            new ContentTools.Style('Légende', 'legend', ['p'])
         ]);
     };
 
