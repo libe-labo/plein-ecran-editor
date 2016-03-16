@@ -87,29 +87,6 @@ def save():
         ]
     )
     g.db.commit()
-
-    fileName = os.path.join(os.path.dirname(os.path.realpath(__file__)),
-                            'index.html')
-    with open(fileName, 'w') as f:
-        f.write(
-            render_template(
-                'production.html',
-                chapters=[
-                    dict(
-                        id=row[0],
-                        position=row[1],
-                        content=Markup(render_template(
-                            'section.html',
-                            position=row[1],
-                            content=Markup(row[2])
-                        ))
-                    ) for row in g.db.execute(
-                        'SELECT id, position, content FROM chapters ORDER BY position ASC'
-                    )
-                ]
-            ).replace('/static', 'static')
-        )
-
     return ''
 
 
