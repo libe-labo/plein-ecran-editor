@@ -17,6 +17,7 @@ $(function() {
         for (j = 0; j < document.styleSheets.length; ++j) {
             if (document.styleSheets[j] == null ||
                 document.styleSheets[j].href == null) { continue; }
+
             if (document.styleSheets[j].href.indexOf('style.css') >= 0) {
                 for (i = 0; i < document.styleSheets[j].cssRules.length; ++i) {
                     if (document.styleSheets[j].cssRules[i].constructor === CSSMediaRule) {
