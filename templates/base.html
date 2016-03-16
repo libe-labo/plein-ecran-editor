@@ -35,9 +35,9 @@
     </head>
     <body>
         <div class="content container-fluid">
-            {% for chapter in chapters %}
-                {{ chapter.content }}
-            {% endfor %}
+{% for chapter in chapters %}
+{{ chapter.content }}
+{% endfor %}
         </div>
 
         <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
@@ -45,7 +45,6 @@
 
         <!-- Header -->
         <script type="text/javascript" src="http://www.liberation.fr/menu/script.js"></script>
-        {% block scripts %}
-        {% endblock %}
+        {% block scripts %}{% endblock %}
     </body>
 </html>

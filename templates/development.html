@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% block styles %}
-<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='content-tools/content-tools.min.css') }}">
-<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='content-tools/my-content-tools.css') }}">
-<link type="text/less" rel="stylesheet" href="{{ url_for('static', filename='style/style.less') }}">
+        <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='content-tools/content-tools.min.css') }}">
+        <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='content-tools/my-content-tools.css') }}">
+        <link type="text/less" rel="stylesheet" href="{{ url_for('static', filename='style/style.less') }}">
 {% endblock %}
 
 {% block scripts %}
-<script type="text/javascript" src="//cdn.rawgit.com/less/less.js/master/dist/less.min.js"></script>
-<div style="display:none;" class="chapter__left"></div>
-<script type="text/javascript" src="{{ url_for('static', filename='content-tools/content-tools.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='content-tools/my-content-tools.js')}}"></script>
+        <script type="text/javascript" src="//cdn.rawgit.com/less/less.js/master/dist/less.min.js"></script>
+        <div style="display:none;" class="chapter__left"></div>
+        <script type="text/javascript" src="{{ url_for('static', filename='content-tools/content-tools.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='content-tools/my-content-tools.js')}}"></script>
 {% endblock %}
