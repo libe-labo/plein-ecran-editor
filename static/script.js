@@ -32,72 +32,6 @@ $(function() {
         return false;
     };
 
-    // I'm hiding all of this in a function 'cause this kind of code is a mess and is ugly
-    function handleEverythingScrollRelated() {
-        function getTopPos(e) {
-            var pos;
-
-            if (typeof(e) === typeof('')) {
-                e = $('#' + e.replace(/^#/, ''));
-            }
-
-            pos = e.find('.chapter__content').position() || { top: 0 };
-            return parseInt(pos.top - $('header').outerHeight());
-        }
-
-        function updateChapterLinks() {
-            $('header a[href="' + window.location.hash + '"]').parent('li').addClass('active')
-                .siblings().removeClass('active');
-
-            window.paulloz.afterUpdateChapterLink();
-        }
-
-        $('.menu a').on('click', function(event) {
-            event.preventDefault();
-            event.stopPropagation();
-            window.history.pushState(null, null, $(event.currentTarget).attr('href'));
-            if ($(this).attr('href') === window.location.hash) {
-                $('body').animate({
-                    scrollTop: getTopPos(window.location.hash)
-                });
-                updateChapterLinks();
-            }
-        });
-
-        $(window).on('scroll', function() {
-            var i;
-            var scrollTop = $(window).scrollTop(),
-                currentHash = window.location.hash.replace(/^#/, ''),
-                newHash,
-                $chapters = $('section.chapter');
-
-            for (i = 0; i < $chapters.length; ++i) {
-                if (scrollTop < getTopPos($($chapters.get(i)))) {
-                    break;
-                }
-            }
-
-            newHash = $($chapters.get(Math.max(0, i - 1))).attr('id');
-            if (newHash !== currentHash) {
-                window.history.pushState(null, null, '#' + newHash);
-                updateChapterLinks();
-            }
-        }).on('hashchange', function(event) {
-            event.preventDefault();
-            event.stopPropagation();
-            $(window).scrollTop(getTopPos(window.location.hash));
-            updateChapterLinks();
-        });
-
-        if (window.location.hash != null && window.location.hash.length > 0) {
-            window.setTimeout(function() {
-                $(window).scrollTop(0);
-                $(window).scrollTop(getTopPos(window.location.hash));
-                updateChapterLinks();
-            }, 100);
-        }
-    }
-
     // Make sure we shift the content container so it's the fixed header is not over it
     $('.content').css('padding-top', $('header').outerHeight() || 0);
 
@@ -141,6 +75,4 @@ $(function() {
 
     // At last, initialize all of our components
     window.resetComponents();
-
-    handleEverythingScrollRelated();
 });
