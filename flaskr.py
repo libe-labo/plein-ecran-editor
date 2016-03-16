@@ -43,7 +43,6 @@ def teardown_request(exception):
 
 @app.route('/')
 def longform():
-    print(url_for('static', filename='script.js'))
     return render_template(
         'development.html',
         chapters=[

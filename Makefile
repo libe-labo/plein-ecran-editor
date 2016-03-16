@@ -1,4 +1,4 @@
-PIP = pip3
+PIP = pip
 PIP_FOLDER = .pip
 PYTHON = python3
 
@@ -8,9 +8,14 @@ CONTENT-TOOLS_DEST_FOLDER = static/content-tools/
 
 UPLOAD_FOLDER = static/upload
 
-CUSTOM_STYLE_FILE = static/style/variables.less
+STYLE_FOLDER = static/style/
+
+CUSTOM_STYLE_FILE = variables.less
 CUSTOM_SCRIPT_FILE = static/scripts/variables.js
 
+EXPORT_FOLDER = export/
+
+LESS = lessc
 WGET = curl -OL
 UNZIP = unzip -q
 CP = cp -R
@@ -23,10 +28,18 @@ all : install run
 run :
 	@PYTHONPATH=@PYTHONPATH:./$(PIP_FOLDER) $(PYTHON) ./flaskr.py
 
-install : pipinstall installcontenttools $(UPLOAD_FOLDER) $(CUSTOM_STYLE_FILE)
+install : pipinstall installcontenttools $(UPLOAD_FOLDER) $(STYLE_FOLDER)$(CUSTOM_STYLE_FILE)
 
 pipinstall :
 	$(PIP) install -t $(PIP_FOLDER) -r requirements.txt --upgrade
+
+static : $(EXPORT_FOLDER) $(EXPORT_FOLDER)$(STYLE_FOLDER)
+	$(TOUCH) $(EXPORT_FOLDER)$(STYLE_FOLDER)style.css
+	$(LESS) $(STYLE_FOLDER)style.less $(EXPORT_FOLDER)$(STYLE_FOLDER)style.css
+	$(CP) index.html $(EXPORT_FOLDER)
+	$(CP) static/ $(EXPORT_FOLDER)
+	$(RM) $(EXPORT_FOLDER)$(CONTENT-TOOLS_DEST_FOLDER)
+	$(RM) $(EXPORT_FOLDER)$(STYLE_FOLDER)*.less
 
 # Quick and dirty
 installcontenttools :
@@ -47,3 +60,9 @@ $(CUSTOM_STYLE_FILE) :
 
 $(CUSTOM_SCRIPT_FILE) :
 	$(TOUCH) $(CUSTOM_SCRIPT_FILE)
+
+$(EXPORT_FOLDER) :
+	$(MKDIR) $(EXPORT_FOLDER)
+
+$(EXPORT_FOLDER)$(STYLE_FOLDER) :
+	$(MKDIR) $(EXPORT_FOLDER)$(STYLE_FOLDER)

@@ -12,3 +12,5 @@ static/scripts/variables.js
 
 db*sql
 index*.html
+
+export/
