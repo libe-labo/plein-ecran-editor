@@ -10,7 +10,7 @@ $> make install
 Et si il n'y a pas d'erreur d'affichée sur l'écran c'est qu'on est bons :shipit:
 
 ```bash
-$> make run
+$> [PORT=5555] make run
 ```
 
 ## To do

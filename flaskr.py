@@ -8,11 +8,14 @@ from flask import Flask, g, render_template, request, url_for
 from jinja2 import Markup
 from werkzeug import secure_filename
 
+
 DATABASE = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'db.sql')
 UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.realpath(__file__)),
                              'static', 'upload')
 ALLOWED_EXTENSIONS = set(['jpg', 'jpg', 'png', 'gif'])
 DEBUG = True
+
+PORT = int(os.environ.get('PORT') or 5000)
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -123,4 +126,4 @@ def allowed_file(filename):
 if __name__ == '__main__':
     if not os.path.isfile(app.config['DATABASE']):
         init_db()
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', port=PORT)
