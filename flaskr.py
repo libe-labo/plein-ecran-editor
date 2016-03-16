@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import os
+import time
 import json
 import sqlite3
 from contextlib import closing
@@ -97,7 +98,9 @@ def save():
 def upload_image():
     file = request.files['image']
     if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
+        filename = secure_filename(
+            '-{0}.'.format(str(int(time.time()))).join(file.filename.rsplit('.', 1))
+        )
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         return json.dumps(dict(
             url=url_for('static', filename='upload/{0}'.format(filename))
@@ -119,8 +122,7 @@ def render_section(row):
 
 
 def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 if __name__ == '__main__':
