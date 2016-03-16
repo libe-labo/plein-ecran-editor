@@ -49,11 +49,7 @@ def longform():
             dict(
                 id=row[0],
                 position=row[1],
-                content=Markup(render_template(
-                    'section.html',
-                    position=row[1],
-                    content=Markup(row[2])
-                ))
+                content=render_section(row)
             ) for row in g.db.execute(
                 'SELECT id, position, content FROM chapters ORDER BY position ASC'
             )
@@ -68,21 +64,14 @@ def add():
             'SELECT position FROM chapters'
         )
     ] + [0]) + 1
-    content = render_template(
-        'chapter.html',
-        position=position,
-        content=Markup("<p>Lorem ipsum</p>")
-    )
+    content = "<p>Lorem ipsum</p>"
+
     g.db.execute(
         'INSERT INTO chapters (content, position) VALUES(?, ?)',
         (content, position)
     )
     g.db.commit()
-    return render_template(
-        'section.html',
-        position=position,
-        content=Markup(content)
-    )
+    return render_section([None, position, content])
 
 
 @app.route('/save', methods=['POST'])
@@ -91,11 +80,7 @@ def save():
         'UPDATE chapters SET content = ? WHERE position = ?',
         [
             (
-                render_template(
-                    'chapter.html',
-                    position=position,
-                    content=Markup(content.replace('&amp;nbsp;', '&nbsp;'))
-                ),
+                Markup(content.replace('&amp;nbsp;', '&nbsp;')),
                 position
             )
             for position, content in request.form.items()
@@ -137,6 +122,20 @@ def upload_image():
         return json.dumps(dict(
             url=url_for('static', filename='upload/{0}'.format(filename))
         ))
+
+
+def render_section(row):
+    return Markup(render_template(
+        'section.html',
+        position=row[1],
+        content=Markup(
+            render_template(
+                'chapter.html',
+                position=row[1],
+                content=Markup(row[2])
+            )
+        )
+    ))
 
 
 def allowed_file(filename):
