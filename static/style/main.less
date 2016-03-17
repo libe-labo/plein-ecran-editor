@@ -118,7 +118,10 @@ header {
             }
 
             &.large {
-                max-width: 100%;
+                @w: 130%;
+                max-width: @w;
+                width: @w;
+                margin-left: -((@w - 100) / 2);
             }
         }
 
