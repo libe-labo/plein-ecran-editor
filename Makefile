@@ -2,8 +2,8 @@ PIP = pip
 PIP_FOLDER = .pip
 PYTHON = python3
 
-CONTENT-TOOLS_URL = https://github.com/GetmeUK/ContentTools/archive/master.zip
-CONTENT-TOOLS_SRC_FOLDER = ContentTools-master/
+CONTENT-TOOLS_URL = https://github.com/GetmeUK/ContentTools/archive/1.0.1.zip
+CONTENT-TOOLS_SRC_FOLDER = ContentTools-1.0.1/
 CONTENT-TOOLS_DEST_FOLDER = static/content-tools/
 
 UPLOAD_FOLDER = static/upload
@@ -43,14 +43,14 @@ static : $(EXPORT_FOLDER) $(EXPORT_FOLDER)$(STYLE_FOLDER)
 
 # Quick and dirty
 installcontenttools :
-	$(RM) master.zip
+	$(RM) 1.0.1.zip
 	$(WGET) $(CONTENT-TOOLS_URL)
-	$(UNZIP) master.zip
+	$(UNZIP) 1.0.1.zip
 	$(CP) $(CONTENT-TOOLS_SRC_FOLDER)build/images $(CONTENT-TOOLS_DEST_FOLDER)
 	$(CP) $(CONTENT-TOOLS_SRC_FOLDER)build/content-tools.min.css $(CONTENT-TOOLS_DEST_FOLDER)
 	$(CP) $(CONTENT-TOOLS_SRC_FOLDER)build/content-tools.min.js $(CONTENT-TOOLS_DEST_FOLDER)
 	$(RM) $(CONTENT-TOOLS_SRC_FOLDER)
-	$(RM) master.zip
+	$(RM) 1.0.1.zip
 
 $(UPLOAD_FOLDER) :
 	$(MKDIR) $(UPLOAD_FOLDER)
