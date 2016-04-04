@@ -53,14 +53,14 @@ window.addEventListener('load', function() {
                     dialog,
                     modal = new ContentTools.ModalUI({ transparent: true, allowScrolling: true });
 
-                var domElement;
+                var domElement, measureSpan, rect;
 
                 element.storeState();
 
                 element.content = element.content.format(sFrom, sTo, selectTag);
                 element.updateInnerHTML();
 
-                modal.bind('click', function() {
+                modal.addEventListener('click', function() {
                     this.unmount();
                     dialog.hide();
 
@@ -72,9 +72,9 @@ window.addEventListener('load', function() {
                     callback(false);
                 });
 
-                domElement = element.domElement(),
-                    measureSpan = domElement.getElementsByClassName('ct--pseudo-select'),
-                    rect = measureSpan[0].getBoundingClientRect();
+                domElement = element.domElement();
+                measureSpan = domElement.getElementsByClassName('ct--pseudo-select');
+                rect = measureSpan[0].getBoundingClientRect();
 
                 dialog = new ContentTools.LinkDialog(this.getStuff(element, selection));
                 (function() {
@@ -89,8 +89,10 @@ window.addEventListener('load', function() {
                     rect.left + (rect.width / 2) + window.scrollX,
                     rect.top + (rect.height / 2) + window.scrollY
                 ]);
-                dialog.bind('save', function(stuff) {
-                    var htmlStringAttrs;
+                dialog.addEventListener('save', function(ev) {
+                    var stuff = ev.detail().href,
+                        htmlStringAttrs;
+                    console.debug(ev)
 
                     element.content = element.content.unformat(sFrom, sTo, Tool.tagName);
 
@@ -227,9 +229,14 @@ window.addEventListener('load', function() {
         ['undo', 'redo', 'remove']
     ];
 
-    editor.bind('save', function(regions) {
+    editor.addEventListener('saved', function(ev) {
+        var regions = ev.detail().regions;
         var data = { };
         var k;
+
+        if (Object.keys(regions).length <= 0) {
+            return;
+        }
 
         editor.busy(true);
 
@@ -254,7 +261,7 @@ window.addEventListener('load', function() {
     ContentTools.IMAGE_UPLOADER = function(dialog) {
         var image, xhr, xhrComplete, xhrProgress;
 
-        dialog.bind('imageUploader.cancelUpload', function() {
+        dialog.addEventListener('imageuploader.cancelupload', function() {
             if (xhr != null) {
                 xhr.upload.removeEventListener('progress', xhrProgress);
                 xhr.removeEventListener('readystatechange', xhrComplete);
@@ -264,12 +271,12 @@ window.addEventListener('load', function() {
             dialog.state('empty');
         });
 
-        dialog.bind('imageUploader.clear', function() {
+        dialog.addEventListener('imageuploader.clear', function() {
             dialog.clear();
             image = null;
         });
 
-        dialog.bind('imageUploader.fileReady', function(file) {
+        dialog.addEventListener('imageuploader.fileready', function(ev) {
             var formData;
 
             xhrProgress = function(ev) {
@@ -308,7 +315,7 @@ window.addEventListener('load', function() {
             dialog.progress(0);
 
             formData = new FormData();
-            formData.append('image', file);
+            formData.append('image', ev.detail().file);
 
             xhr = new XMLHttpRequest();
             xhr.upload.addEventListener('progress', xhrProgress);
@@ -317,7 +324,7 @@ window.addEventListener('load', function() {
             xhr.send(formData);
         });
 
-        dialog.bind('imageUploader.save', function() {
+        dialog.addEventListener('imageuploader.save', function() {
             if (image != null && image.url != null) {
                 dialog.save(image.url, image.size);
             } else {

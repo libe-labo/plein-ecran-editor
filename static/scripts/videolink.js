@@ -13,7 +13,8 @@ $.fn.videolink = function() {
     $(this).off('click.videolink');
     $(this).on('click.videolink', function(ev) {
         var $this = $(this),
-            url, i;
+            url, i,
+            width, height;
 
         if (!window.isMobile()) {
             ev.preventDefault();
@@ -32,12 +33,12 @@ $.fn.videolink = function() {
 
             $container.show();
 
-            url = $this.attr('href'),
-                width = parseInt(
-                    ($(window).innerWidth() - $('.chapter__content').outerWidth()) / 2 -
-                    ($('.exergue').last().outerWidth() * 0.70)
-                ),
-                height = parseInt(259 * width / 460);
+            url = $this.attr('href');
+            width = parseInt(
+                ($(window).innerWidth() - $('.chapter__content').outerWidth()) / 2 -
+                ($('.exergue').last().outerWidth() * 0.70)
+            );
+            height = parseInt(259 * width / 460);
 
             if (url === 'http://fresques.ina.fr/artsonores/fiche-media/InaGrm00208/' +
                         'la-naissance-de-la-musique-concrete-et-electro-acoustique.html') {
