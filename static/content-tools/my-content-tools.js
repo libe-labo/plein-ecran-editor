@@ -161,12 +161,47 @@ window.addEventListener('load', function() {
         })();
     };
 
+    var defineCoverTools = function() {
+        $('.chapter__cover').each(function() {
+            var chapterCover = $(this);
+            var btn = $('<div>', { class: 'ct-ignition__button ct-ignition__button--cover' });
+
+            btn.on('click', function() {
+                var modal = new ContentTools.ModalUI({ transparent: true, allowScrolling: true }),
+                    dialog = new ContentTools.ImageDialog();
+
+                modal.addEventListener('click', function() {
+                    this.unmount();
+                    dialog.hide();
+                });
+
+                dialog.addEventListener('save', function(ev) {
+                    chapterCover.css('background-image', 'url(' + ev.detail().imageURL + ')');
+
+                    modal.unmount();
+                    dialog.hide();
+
+                    new ContentTools.FlashUI('ok');
+                });
+
+                editor.attach(modal);
+                editor.attach(dialog);
+                modal.show();
+                dialog.show();
+            });
+
+            btn.appendTo($('<div>', { class: 'ct-widget ct-covers' }).appendTo(chapterCover));
+        });
+    };
+
     var onStopEdit = function() {
         $('.chapter__content > *').each(function() {
             if ($(this).hasClass('menu')) { return; }
 
             $(this).html($(this).html().replace('&amp;nbsp;', '&nbsp;'));
         });
+
+        $('.ct-covers').remove();
 
         window.resetComponents();
     };
@@ -175,7 +210,6 @@ window.addEventListener('load', function() {
         editor.init('.chapter__content', 'data-name');
 
         $('.ct-ignition__button--cancel').click(function() {
-            onStopEdit();
         });
 
         $('.ct-ignition__button--edit')[0].addEventListener('click', function() {
@@ -231,29 +265,43 @@ window.addEventListener('load', function() {
 
     editor.addEventListener('saved', function(ev) {
         var regions = ev.detail().regions;
-        var data = { };
+        var data = { regions: {}, covers: {} };
         var k;
-
-        if (Object.keys(regions).length <= 0) {
-            return;
-        }
 
         editor.busy(true);
 
         for (k in regions) {
             if (regions.hasOwnProperty(k) && k.indexOf('chapitre-') === 0) {
-                data[k.replace('chapitre-', '')] = regions[k];
+                data.regions[k.replace('chapitre-', '')] = regions[k];
             }
         }
 
-        $.post('/save', data, function(_, status) {
-            onStopEdit();
+        $('.chapter__cover').each(function() {
+            var url = $(this).css('background-image');
+            if (url != null && url !== 'none') {
+                url = url.replace(/^url\(/, '').replace(/["']/g, '')
+                         .replace(/\)$/, '').replace(/.*\/static/, '/static');
+                data.covers[$(this).parent().children('.chapter__content').attr('data-name').replace('chapitre-', '')] = url;
+            }
+        });
 
-            editor.busy(false);
-            if (status === 'success') {
-                new ContentTools.FlashUI('ok');
-            } else {
-                new ContentTools.FlashUI('no');
+        $.ajax({
+            type: 'POST',
+
+            contentType: 'application/json',
+
+            url: '/save',
+            data: JSON.stringify(data),
+
+            success: function(_, status) {
+                onStopEdit();
+
+                editor.busy(false);
+                if (status === 'success') {
+                    new ContentTools.FlashUI('ok');
+                } else {
+                    new ContentTools.FlashUI('no');
+                }
             }
         });
     });
@@ -332,6 +380,12 @@ window.addEventListener('load', function() {
             }
         });
     };
+
+    editor.addEventListener('start', function() {
+        defineCoverTools();
+    });
+
+    editor.addEventListener('stop', onStopEdit);
 
     if ($('.chapter__content').length > 0) {
         defineStyles();

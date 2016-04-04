@@ -55,7 +55,7 @@ def longform():
                 position=row[1],
                 content=render_section(row)
             ) for row in g.db.execute(
-                'SELECT id, position, content FROM chapters ORDER BY position ASC'
+                'SELECT id, position, content, cover FROM chapters ORDER BY position ASC'
             )
         ]
     )
@@ -71,11 +71,11 @@ def add():
     content = "<p>Lorem ipsum</p>"
 
     g.db.execute(
-        'INSERT INTO chapters (content, position) VALUES(?, ?)',
-        (content, position)
+        'INSERT INTO chapters (content, position, cover) VALUES(?, ?, ?)',
+        (content, position, '')
     )
     g.db.commit()
-    return render_section([None, position, content])
+    return render_section([None, position, content, ''])
 
 
 @app.route('/save', methods=['POST'])
@@ -87,7 +87,17 @@ def save():
                 Markup(content.replace('&amp;nbsp;', '&nbsp;')),
                 position
             )
-            for position, content in request.form.items()
+            for position, content in request.json['regions'].items()
+        ]
+    )
+    g.db.executemany(
+        'UPDATE chapters SET cover = ? WHERE position = ?',
+        [
+            (
+                url,
+                position
+            )
+            for position, url in request.json['covers'].items()
         ]
     )
     g.db.commit()
@@ -103,7 +113,7 @@ def save():
                         position=row[1],
                         content=render_section(row)
                     ) for row in g.db.execute(
-                        'SELECT id, position, content FROM chapters ORDER BY position ASC'
+                        'SELECT id, position, content, cover FROM chapters ORDER BY position ASC'
                     )
                 ]
             ).replace('"/static', '"static')
@@ -135,7 +145,8 @@ def render_section(row):
                 position=row[1],
                 content=Markup(row[2])
             )
-        )
+        ),
+        cover=(row[3])
     ))
 
 

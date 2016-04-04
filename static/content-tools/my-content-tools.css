@@ -9,12 +9,23 @@
     background: #2E8ECE none repeat scroll 0% 0%;
 }
 
+.ct-covers {
+    opacity: 1;
+}
+
+.ct-ignition__button--cover {
+    top: 1em;
+    right: 1em;
+
+    background: #2E8ECE none repeat scroll 0% 0%;
+}
 
 .ct-ignition .ct-ignition__button--edit::before { content: "\e600"; }
 .ct-ignition .ct-ignition__button--confirm::before { content: "\e60f"; }
 .ct-ignition .ct-ignition__button--cancel::before { content: "\e60e"; }
 .ct-ignition .ct-ignition__button--busy::before { content: "\e607"; }
 .ct-ignition .ct-ignition__button--add-chapter::before { content: "\e60d"; }
+.ct-ignition__button--cover::before { content: "\e602"; }
 
 .ct-widget .ct-tool--bold::before { content: "\e611"; }
 .ct-widget .ct-tool--italic::before { content: "\e612"; }
