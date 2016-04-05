@@ -34,8 +34,9 @@ install : pipinstall installcontenttools $(UPLOAD_FOLDER) $(STYLE_FOLDER)$(CUSTO
 pipinstall :
 	$(PIP) install -t $(PIP_FOLDER) -r requirements.txt --upgrade
 
-static : $(EXPORT_FOLDER) $(EXPORT_FOLDER)$(STYLE_FOLDER)
-	$(TOUCH) $(EXPORT_FOLDER)$(STYLE_FOLDER)style.css
+build :
+	$(RM) $(EXPORT_FOLDER)
+	$(MKDIR) $(EXPORT_FOLDER)$(STYLE_FOLDER)
 	$(LESS) $(STYLE_FOLDER)style.less $(EXPORT_FOLDER)$(STYLE_FOLDER)style.css
 	$(CP) index.html $(EXPORT_FOLDER)
 	$(CP) static/ $(EXPORT_FOLDER)
@@ -61,9 +62,3 @@ $(STYLE_FOLDER)$(CUSTOM_STYLE_FILE) :
 
 $(CUSTOM_SCRIPT_FILE) :
 	$(TOUCH) $(CUSTOM_SCRIPT_FILE)
-
-$(EXPORT_FOLDER) :
-	$(MKDIR) $(EXPORT_FOLDER)
-
-$(EXPORT_FOLDER)$(STYLE_FOLDER) :
-	$(MKDIR) $(EXPORT_FOLDER)$(STYLE_FOLDER)
