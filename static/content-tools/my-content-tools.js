@@ -13,7 +13,8 @@ window.addEventListener('load', function() {
             new ContentTools.Style('Question', 'question', ['p']),
             new ContentTools.Style('Appui', 'fold', ['p']),
             new ContentTools.Style('Légende', 'legend', ['p']),
-            new ContentTools.Style('Grande photo', 'large', ['img'])
+            new ContentTools.Style('Grande photo', 'large', ['img']),
+            new ContentTools.Style('Titre de couverture', 'cover-title', ['h1'])
         ]);
     };
 
@@ -92,7 +93,6 @@ window.addEventListener('load', function() {
                 dialog.addEventListener('save', function(ev) {
                     var stuff = ev.detail().href,
                         htmlStringAttrs;
-                    console.debug(ev)
 
                     element.content = element.content.unformat(sFrom, sTo, Tool.tagName);
 
@@ -383,6 +383,9 @@ window.addEventListener('load', function() {
 
     editor.addEventListener('start', function() {
         defineCoverTools();
+        [].slice.call(document.querySelectorAll('.chapter__content .cover-title')).forEach(function(title) {
+            title.style.display = 'block';
+        });
     });
 
     editor.addEventListener('stop', onStopEdit);
