@@ -4,6 +4,7 @@ import os
 import time
 import json
 import sqlite3
+import re
 from contextlib import closing
 from flask import Flask, g, render_template, request, url_for
 from jinja2 import Markup
@@ -106,18 +107,22 @@ def save():
     # Generate index.html
     with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'index.html'), 'w') as f:
         f.write(
-            render_template(
-                'production.html',
-                chapters=[
-                    dict(
-                        id=row[0],
-                        position=row[1],
-                        content=render_section(row)
-                    ) for row in g.db.execute(
-                        'SELECT id, position, content, cover FROM chapters ORDER BY position ASC'
-                    )
-                ]
-            ).replace('"/static', '"static')
+            re.sub(
+                r'(["(])/static',  # Remove leading slash
+                r'\1static',
+                render_template(
+                    'production.html',
+                    chapters=[
+                        dict(
+                            id=row[0],
+                            position=row[1],
+                            content=render_section(row)
+                        ) for row in g.db.execute(
+                            'SELECT id, position, content, cover FROM chapters ORDER BY position ASC'
+                        )
+                    ]
+                ).replace('(["(])/static', '$1static')
+            )
         )
 
     return ''
