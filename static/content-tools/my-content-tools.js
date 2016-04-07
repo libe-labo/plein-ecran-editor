@@ -171,14 +171,19 @@ window.addEventListener('load', function() {
                     dialog = new ContentTools.ImageDialog();
 
                 modal.addEventListener('click', function() {
-                    this.unmount();
+                    modal.hide();
+                    dialog.hide();
+                });
+
+                dialog.addEventListener('cancel', function() {
+                    modal.hide();
                     dialog.hide();
                 });
 
                 dialog.addEventListener('save', function(ev) {
                     chapterCover.css('background-image', 'url(' + ev.detail().imageURL + ')');
 
-                    modal.unmount();
+                    modal.hide();
                     dialog.hide();
 
                     new ContentTools.FlashUI('ok');
