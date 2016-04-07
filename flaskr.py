@@ -13,9 +13,10 @@ from PIL import Image
 
 
 DATABASE = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'db.sql')
-UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.realpath(__file__)),
-                             'static', 'upload')
-ALLOWED_EXTENSIONS = set(['jpg', 'jpg', 'png', 'gif'])
+
+UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'static', 'upload')
+ALLOWED_EXTENSIONS = set(['jpg', 'png', 'gif'])
+
 DEBUG = True
 
 PORT = int(os.environ.get('PORT') or 5000)
@@ -56,20 +57,14 @@ def longform():
                 id=row[0],
                 position=row[1],
                 content=render_section(row)
-            ) for row in g.db.execute(
-                'SELECT id, position, content, cover FROM chapters ORDER BY position ASC'
-            )
+            ) for row in g.db.execute('SELECT * FROM chapters ORDER BY position ASC')
         ]
     )
 
 
 @app.route('/add', methods=['POST'])
 def add():
-    position = max([
-        row[0] for row in g.db.execute(
-            'SELECT position FROM chapters'
-        )
-    ] + [0]) + 1
+    position = max([row[0] for row in g.db.execute('SELECT position FROM chapters')] + [0]) + 1
     content = "<p>Lorem ipsum</p>"
 
     g.db.execute(
@@ -77,6 +72,7 @@ def add():
         (content, position, '')
     )
     g.db.commit()
+
     return render_section([None, position, content, ''])
 
 
@@ -88,19 +84,12 @@ def save():
             (
                 Markup(content.replace('&amp;nbsp;', '&nbsp;')),
                 position
-            )
-            for position, content in request.json['regions'].items()
+            ) for position, content in request.json['regions'].items()
         ]
     )
     g.db.executemany(
         'UPDATE chapters SET cover = ? WHERE position = ?',
-        [
-            (
-                url,
-                position
-            )
-            for position, url in request.json['covers'].items()
-        ]
+        [(url, position) for position, url in request.json['covers'].items()]
     )
     g.db.commit()
 
@@ -117,15 +106,13 @@ def save():
                             id=row[0],
                             position=row[1],
                             content=render_section(row)
-                        ) for row in g.db.execute(
-                            'SELECT id, position, content, cover FROM chapters ORDER BY position ASC'
-                        )
+                        ) for row in g.db.execute('SELECT * FROM chapters ORDER BY position ASC')
                     ]
-                ).replace('(["(])/static', '$1static')
+                )
             )
         )
 
-    return ''
+    return 'OK'
 
 
 @app.route('/upload-image', methods=['POST'])
@@ -145,22 +132,14 @@ def upload_image():
                     im.save(filepath, 'jpeg', quality=85, optimize=True)
         except IOError:
             pass
-        return json.dumps(dict(
-            url=url_for('static', filename='upload/{0}'.format(filename))
-        ))
+        return json.dumps(dict(url=url_for('static', filename='upload/{0}'.format(filename))))
 
 
 def render_section(row):
     return Markup(render_template(
         'section.html',
         position=row[1],
-        content=Markup(
-            render_template(
-                'chapter.html',
-                position=row[1],
-                content=Markup(row[2])
-            )
-        ),
+        content=Markup(render_template('chapter.html', position=row[1], content=Markup(row[2]))),
         cover=(row[3])
     ))
 
