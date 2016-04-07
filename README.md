@@ -17,7 +17,6 @@ $> [PORT=5555] make run
 
 * Meilleure gestion des insécables
 * Édition simplifiée des appuis
-* Édition des inter-chapitres
 * Suppression de chapitres
 * Gestion des accès concurrents
 
@@ -25,7 +24,7 @@ $> [PORT=5555] make run
 
 > The MIT License (MIT)
 >
-> Copyright (c) Libé Six Plus 2015
+> Copyright (c) Libé Six Plus 2015 - 2016
 >
 > Permission is hereby granted, free of charge, to any person obtaining a copy
 > of this software and associated documentation files (the "Software"), to deal
