@@ -1,6 +1,22 @@
 'use strict';
 
 window.addEventListener('load', function() {
+    // Helper 'Confirm' function
+    // Fires a dialog box and callback if needed
+    var confirm = function(text, callback, immediate) {
+        var f = function() {
+            if (window.confirm(text)) {
+                callback();
+            }
+        };
+
+        if (immediate != null && immediate) {
+            f();
+        }
+
+        return f;
+    };
+
     var editor = ContentTools.EditorApp.get();
 
     var defineStyles = function() {
@@ -229,10 +245,10 @@ window.addEventListener('load', function() {
         $('.ct-widget').append(
             $('<div>', {
                 class: 'ct-ignition__button ct-ignition__button--add-chapter'
-            }).click(function() {
-                var confirmationText = 'On ajoute vraiment un chapitre ?\n' +
-                                       '(Toutes les modifications non sauvegardées seront perdues)';
-                if (window.confirm(confirmationText)) {
+            }).click(confirm(
+                'On ajoute vraiment un chapitre ?\n' +
+                '(Toutes les modifications non sauvegardées seront perdues)',
+                function() {
                     editor.busy(true);
                     $.post('/add', function(data, status) {
                         editor.busy(false);
@@ -253,7 +269,7 @@ window.addEventListener('load', function() {
                         }
                     });
                 }
-            })
+            ))
         );
 
         onStopEdit();
