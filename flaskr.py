@@ -76,6 +76,22 @@ def add():
     return render_section([None, position, content, ''])
 
 
+@app.route('/delete', methods=['POST'])
+def delete():
+    chapters = g.db.execute('SELECT id, position FROM chapters').fetchall()
+    if len(chapters) > 1:
+        for (id, position) in chapters:
+            if position == request.json['position']:
+                g.db.execute(
+                    'DELETE FROM chapters WHERE position=?', (str(request.json['position']))
+                )
+                g.db.commit()
+                return 'OK'
+        return 'KO'
+    else:
+        return 'KO'
+
+
 @app.route('/save', methods=['POST'])
 def save():
     g.db.executemany(
