@@ -1,3 +1,16 @@
+.ct-widget .ct-ignition__button {
+    width: auto;
+    min-width: 48px;
+    padding: 0 .5em;
+
+    color: #fff;
+    font-family: sans-serif;
+}
+
+.ct-widget .ct-ignition__button::before {
+    font-family: 'icon';
+}
+
 .ct-ignition .ct-ignition__button--add-chapter {
     display: block !important;
     top: 64px;
@@ -22,15 +35,13 @@
 
 .ct-ignition__button--delete-chapter {
     top: auto;
-    bottom: -1em;
+    bottom: .5em;
 }
 
 .ct-ignition .ct-ignition__button--edit::before { content: "\e600"; }
 .ct-ignition .ct-ignition__button--confirm::before { content: "\e60f"; }
 .ct-ignition .ct-ignition__button--cancel::before { content: "\e60e"; }
 .ct-ignition .ct-ignition__button--busy::before { content: "\e607"; }
-.ct-ignition .ct-ignition__button--add-chapter::before { content: "\e60d"; }
-.ct-ignition__button--delete-chapter::before { content: "\e60e"; }
 .ct-ignition__button--cover::before { content: "\e602"; }
 
 .ct-widget .ct-tool--bold::before { content: "\e611"; }

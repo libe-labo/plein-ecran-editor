@@ -185,7 +185,7 @@ window.addEventListener('load', function() {
     var defineChapterTools = function() {
         var loseModifText = '(Toutes les modifications non sauvegardées seront perdues)';
         removeChapterTools();
-        $('.ct-widget').append(
+        $('.ct-app .ct-widget').append(
             $('<div>', {
                 class: 'ct-ignition__button ct-ignition__button--add-chapter'
             }).click(confirm(
@@ -211,39 +211,39 @@ window.addEventListener('load', function() {
                         }
                     });
                 }
-            ))
+            )).html('Ajouter&nbsp;un&nbsp;chapitre')
         );
         $('.chapter__cover .ct-covers').each(function(i) {
-            var deleteButton = $('<div>', {
-                class: 'ct-ignition__button ct-ignition__button--delete-chapter'
-            });
-            deleteButton.on('click', confirm(
-                'On supprime vraiment ce chapitre ?\n' + loseModifText,
-                function() {
-                    editor.busy(true);
+            $(this).append(
+                $('<div>', {
+                    class: 'ct-ignition__button ct-ignition__button--delete-chapter'
+                }).on('click', confirm(
+                    'On supprime vraiment ce chapitre ?\n' + loseModifText,
+                    function() {
+                        editor.busy(true);
 
-                    $.ajax({
-                        type: 'POST',
+                        $.ajax({
+                            type: 'POST',
 
-                        contentType: 'application/json',
+                            contentType: 'application/json',
 
-                        url: '/delete',
-                        data: JSON.stringify({ position: i + 1 }),
+                            url: '/delete',
+                            data: JSON.stringify({ position: i + 1 }),
 
-                        success: function(responseText, status) {
-                            editor.busy(false);
-                            if (status === 'success' && responseText === 'OK') {
-                                new ContentTools.FlashUI('ok');
-                                $('.ct-ignition__button--cancel').click();
-                                window.location.reload();
-                            } else {
-                                new ContentTools.FlashUI('no');
+                            success: function(responseText, status) {
+                                editor.busy(false);
+                                if (status === 'success' && responseText === 'OK') {
+                                    new ContentTools.FlashUI('ok');
+                                    $('.ct-ignition__button--cancel').click();
+                                    window.location.reload();
+                                } else {
+                                    new ContentTools.FlashUI('no');
+                                }
                             }
-                        }
-                    });
-                })
+                        });
+                    })
+                ).html('Supprimer&nbsp;ce&nbsp;chapitre')
             );
-            deleteButton.appendTo(this);
         });
     };
 
