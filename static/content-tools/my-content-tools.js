@@ -177,6 +177,43 @@ window.addEventListener('load', function() {
         })();
     };
 
+    var removeChapterTools = function() {
+        $('.ct-ignition__button--add-chapter').remove();
+    };
+
+    var defineChapterTools = function() {
+        removeChapterTools();
+        $('.ct-widget').append(
+            $('<div>', {
+                class: 'ct-ignition__button ct-ignition__button--add-chapter'
+            }).click(confirm(
+                'On ajoute vraiment un chapitre ?\n' +
+                '(Toutes les modifications non sauvegardées seront perdues)',
+                function() {
+                    editor.busy(true);
+                    $.post('/add', function(data, status) {
+                        editor.busy(false);
+                        if (status === 'success') {
+                            new ContentTools.FlashUI('ok');
+                            $('.content').append(data);
+                            $('ul').append(
+                                $('<li>').append(
+                                    $('<a>', {
+                                        href: '#' + $('section:last-of-type').attr('id')
+                                    }).text('Chapitre ' + String($('section').length))
+                                )
+                            );
+                            editor.destroy();
+                            startEditor();
+                        } else {
+                            new ContentTools.FlashUI('no');
+                        }
+                    });
+                }
+            ))
+        );
+    };
+
     var defineCoverTools = function() {
         $('.chapter__cover').each(function() {
             var chapterCover = $(this);
@@ -224,6 +261,8 @@ window.addEventListener('load', function() {
 
         $('.ct-covers').remove();
 
+        removeChapterTools();
+
         window.resetComponents();
     };
 
@@ -242,35 +281,6 @@ window.addEventListener('load', function() {
             });
         });
 
-        $('.ct-widget').append(
-            $('<div>', {
-                class: 'ct-ignition__button ct-ignition__button--add-chapter'
-            }).click(confirm(
-                'On ajoute vraiment un chapitre ?\n' +
-                '(Toutes les modifications non sauvegardées seront perdues)',
-                function() {
-                    editor.busy(true);
-                    $.post('/add', function(data, status) {
-                        editor.busy(false);
-                        if (status === 'success') {
-                            new ContentTools.FlashUI('ok');
-                            $('.content').append(data);
-                            $('ul').append(
-                                $('<li>').append(
-                                    $('<a>', {
-                                        href: '#' + $('section:last-of-type').attr('id')
-                                    }).text('Chapitre ' + String($('section').length))
-                                )
-                            );
-                            editor.destroy();
-                            startEditor();
-                        } else {
-                            new ContentTools.FlashUI('no');
-                        }
-                    });
-                }
-            ))
-        );
 
         onStopEdit();
     };
@@ -404,6 +414,7 @@ window.addEventListener('load', function() {
     };
 
     editor.addEventListener('start', function() {
+        defineChapterTools();
         defineCoverTools();
         [].slice.call(
             document.querySelectorAll('.chapter__content .cover-title')
