@@ -214,8 +214,7 @@ window.addEventListener('load', function() {
     var startEditor = function() {
         editor.init('.chapter__content', 'data-name');
 
-        $('.ct-ignition__button--cancel').click(function() {
-        });
+        $('.ct-ignition__button--cancel').click(function() { });
 
         $('.ct-ignition__button--edit')[0].addEventListener('click', function() {
             $('.fold.folded').removeClass('folded');
@@ -286,7 +285,9 @@ window.addEventListener('load', function() {
             if (url != null && url !== 'none') {
                 url = url.replace(/^url\(/, '').replace(/["']/g, '')
                          .replace(/\)$/, '').replace(/.*\/static/, '/static');
-                data.covers[$(this).parent().children('.chapter__content').attr('data-name').replace('chapitre-', '')] = url;
+                data.covers[
+                    $(this).siblings('.chapter__content').attr('data-name').replace('chapitre-', '')
+                ] = url;
             }
         });
 
@@ -388,7 +389,9 @@ window.addEventListener('load', function() {
 
     editor.addEventListener('start', function() {
         defineCoverTools();
-        [].slice.call(document.querySelectorAll('.chapter__content .cover-title')).forEach(function(title) {
+        [].slice.call(
+            document.querySelectorAll('.chapter__content .cover-title')
+        ).forEach(function(title) {
             title.style.display = 'block';
         });
     });
