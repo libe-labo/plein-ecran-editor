@@ -179,16 +179,17 @@ window.addEventListener('load', function() {
 
     var removeChapterTools = function() {
         $('.ct-ignition__button--add-chapter').remove();
+        $('.ct-ignition__button--delete-chapter').remove();
     };
 
     var defineChapterTools = function() {
+        var loseModifText = '(Toutes les modifications non sauvegardées seront perdues)';
         removeChapterTools();
         $('.ct-widget').append(
             $('<div>', {
                 class: 'ct-ignition__button ct-ignition__button--add-chapter'
             }).click(confirm(
-                'On ajoute vraiment un chapitre ?\n' +
-                '(Toutes les modifications non sauvegardées seront perdues)',
+                'On ajoute vraiment un chapitre ?\n' + loseModifText,
                 function() {
                     editor.busy(true);
                     $.post('/add', function(data, status) {
@@ -212,6 +213,38 @@ window.addEventListener('load', function() {
                 }
             ))
         );
+        $('.chapter__cover .ct-covers').each(function(i) {
+            var deleteButton = $('<div>', {
+                class: 'ct-ignition__button ct-ignition__button--delete-chapter'
+            });
+            deleteButton.on('click', confirm(
+                'On supprime vraiment ce chapitre ?\n' + loseModifText,
+                function() {
+                    editor.busy(true);
+
+                    $.ajax({
+                        type: 'POST',
+
+                        contentType: 'application/json',
+
+                        url: '/delete',
+                        data: JSON.stringify({ position: i + 1 }),
+
+                        success: function(responseText, status) {
+                            editor.busy(false);
+                            if (status === 'success' && responseText === 'OK') {
+                                new ContentTools.FlashUI('ok');
+                                $('.ct-ignition__button--cancel').click();
+                                window.location.reload();
+                            } else {
+                                new ContentTools.FlashUI('no');
+                            }
+                        }
+                    });
+                })
+            );
+            deleteButton.appendTo(this);
+        });
     };
 
     var defineCoverTools = function() {
@@ -260,7 +293,6 @@ window.addEventListener('load', function() {
         });
 
         $('.ct-covers').remove();
-
         removeChapterTools();
 
         window.resetComponents();
@@ -414,8 +446,8 @@ window.addEventListener('load', function() {
     };
 
     editor.addEventListener('start', function() {
-        defineChapterTools();
         defineCoverTools();
+        defineChapterTools();
         [].slice.call(
             document.querySelectorAll('.chapter__content .cover-title')
         ).forEach(function(title) {

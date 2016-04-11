@@ -13,11 +13,16 @@
     opacity: 1;
 }
 
-.ct-ignition__button--cover {
+.ct-ignition__button--cover, .ct-ignition__button--delete-chapter {
     top: 1em;
     right: 1em;
 
     background: #2E8ECE none repeat scroll 0% 0%;
+}
+
+.ct-ignition__button--delete-chapter {
+    top: auto;
+    bottom: -1em;
 }
 
 .ct-ignition .ct-ignition__button--edit::before { content: "\e600"; }
@@ -25,6 +30,7 @@
 .ct-ignition .ct-ignition__button--cancel::before { content: "\e60e"; }
 .ct-ignition .ct-ignition__button--busy::before { content: "\e607"; }
 .ct-ignition .ct-ignition__button--add-chapter::before { content: "\e60d"; }
+.ct-ignition__button--delete-chapter::before { content: "\e60e"; }
 .ct-ignition__button--cover::before { content: "\e602"; }
 
 .ct-widget .ct-tool--bold::before { content: "\e611"; }
