@@ -17,7 +17,6 @@ $> [PORT=5555] make run
 
 * Meilleure gestion des insécables
 * Édition simplifiée des appuis
-* Suppression de chapitres
 * Gestion des accès concurrents
 
 ## License
