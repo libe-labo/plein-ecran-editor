@@ -9,7 +9,6 @@ from contextlib import closing
 from flask import Flask, g, render_template, request, url_for
 from jinja2 import Markup
 from werkzeug import secure_filename
-from PIL import Image
 
 
 DATABASE = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'db.sql')
@@ -140,14 +139,6 @@ def upload_image():
         )
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(filepath)
-        try:
-            with Image.open(filepath) as im:
-                if im.format.lower() != 'gif':
-                    if im.size[0] > 2000:
-                        im = im.resize((2000, int(2000 * im.size[1] / im.size[0])))
-                    im.save(filepath, 'jpeg', quality=85, optimize=True)
-        except IOError:
-            pass
         return json.dumps(dict(url=url_for('static', filename='upload/{0}'.format(filename))))
 
 
