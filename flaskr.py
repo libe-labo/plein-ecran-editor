@@ -17,8 +17,7 @@ UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'stati
 ALLOWED_EXTENSIONS = set(['jpg', 'png', 'gif'])
 
 DEBUG = os.environ.get('DEBUG', True)
-
-PORT = int(os.environ.get('PORT') or 5000)
+PORT = int(os.environ.get('PORT', 5000))
 
 app = Flask(__name__)
 app.config.from_object(__name__)
