@@ -16,7 +16,7 @@ DATABASE = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'db.sql')
 UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'static', 'upload')
 ALLOWED_EXTENSIONS = set(['jpg', 'png', 'gif'])
 
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', True)
 
 PORT = int(os.environ.get('PORT') or 5000)
 
@@ -158,4 +158,6 @@ def allowed_file(filename):
 if __name__ == '__main__':
     if not os.path.isfile(app.config['DATABASE']):
         init_db()
-    app.run(host='0.0.0.0', port=PORT)
+    if isinstance(DEBUG, str):
+        DEBUG = True if DEBUG == 'True' else False
+    app.run(host='0.0.0.0', port=PORT, debug=DEBUG)
