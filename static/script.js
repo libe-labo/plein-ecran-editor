@@ -52,9 +52,6 @@ $(function() {
         return false;
     };
 
-    // Make sure we shift the content container so it's the fixed header is not over it
-    $('.content').css('padding-top', $('header').outerHeight() || 0);
-
     // Make sure spaces in front of '?', '!', ':', ';' are non-breakable
     $('p').each((function() {
         var characters = ['?', '!', ':', ';'];
