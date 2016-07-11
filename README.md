@@ -13,6 +13,16 @@ Et si il n'y a pas d'erreur d'affichée sur l'écran c'est qu'on est bons :shipi
 $> [PORT=5555] make run
 ```
 
+## Mise en ligne
+
+1. Compléter les meta-tags dans `templates/base.html`  
+2. Compléter les tracking-tags dans `template/production.html`  
+3. Compiler `static/style/*.less` dans `statis/style/style.css`
+  * `$> lessc static/style/style.less > static/style/style.css`
+4. Retourner sauvegarder dans l'éditeur (ça va mettre à jour le fichier `index.html`)
+5. Uploader `index.html` `static/scripts/` `static/style/style.css` `static/upload/`
+6. Enjoy 🍦
+
 ## To do
 
 * Meilleure gestion des insécables
