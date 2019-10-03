@@ -9,13 +9,19 @@
         <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
         <meta name="keywords" content="actualités, news">
 
-
         <meta property="og:title" content="Libération.fr – " />
         <meta property="og:site_name" content="Libération.fr"/>
         <meta property="og:image" content="" />
         <meta property="og:url" content="" />
         <meta property="og:description" content="" />
 
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@libe" />
+        <meta name="twitter:creator" content="@libe" />
+        <meta name="twitter:url" content="" />
+        <meta name="twitter:title" content="" />
+        <meta name="twitter:description" content="" />
+        <meta name="twitter:image" content="" />
 
         <link rel="canonical" href="">
         <link rel="shortcut icon" href="https://www.liberation.fr/favicon.ico">
@@ -34,9 +40,13 @@
     </head>
     <body>
         <div class="content container-fluid">
-{% for chapter in chapters %}
-{{ chapter.content }}
-{% endfor %}
+        {% for chapter in chapters %}
+            {{ chapter.content }}
+        {% endfor %}
+            <p class="social">
+                <a rel="canonical" title="Partager cet article" href="https://twitter.com/intent/tweet?text=&amp;via=libe&amp;url=https://www.liberation.fr" target="_blank"><i class="fa fa-twitter fa-2x"></i></a>
+                <a target="_blank" onclick="return fbs_click(400, 300)" rel="nofollow" title="Partager cet article" href="https://www.facebook.com/sharer/sharer.php?t=https://www.liberation.fr&amp;display=popup"><i class="fa fa-facebook-square fa-2x"></i></a>
+            </p>
         </div>
 
         <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
