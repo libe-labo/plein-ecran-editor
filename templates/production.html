@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 
 {% block styles %}
-        <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style/style.css') }}">
         <link type="text/css" rel="stylesheet" href="https://www.liberation.fr/apps/static/styles/fonts.css">
         <link type="text/css" rel="stylesheet" href="https://www.liberation.fr/apps/static/styles/components.css">
+        <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style/style.css') }}">
+        <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style/custom.css') }}">
 {% endblock %}
 
 {% block scripts %}
