@@ -3,7 +3,7 @@
 
 $(function() {
     var resizeCovers = function() {
-        $('.chapter__cover').css('height', $(window).innerHeight() - 65);
+        $('.chapter__cover').css('height', $(window).innerHeight() - 51);
     };
 
     var updateCoverTitles = function() {
